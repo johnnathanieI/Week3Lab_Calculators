@@ -24,8 +24,9 @@ public class AgeCalculatorServlet extends HttpServlet {
             throws ServletException, IOException {
         String age= request.getParameter("age");
         
+        //Empty text verification
         if (age == null || age.equals("")) {
-            String ageouput = "You must give your current age";
+            String ageouput = "You must give your current age.<br>";
             
             request.setAttribute("ageoutput", ageouput);
             
@@ -33,10 +34,38 @@ public class AgeCalculatorServlet extends HttpServlet {
                 .forward(request, response);
             return;
         }
-        
-        request.setAttribute("age", age);
-        
-        getServletContext().getRequestDispatcher("/WEB-INF/ageoutput.jsp")
+        //String verification
+        else if (isNumeric(age)) {
+            int temp = Integer.parseInt(age);
+            temp++;
+            
+            String ageouput = "Your age next birthday will be " + temp + "<br>";
+            
+            request.setAttribute("ageoutput", ageouput);
+            
+            getServletContext().getRequestDispatcher("/WEB-INF/agecalculator.jsp")
                 .forward(request, response);
+            return;
+        }
+        else {
+            String ageouput = "You must enter a number.<br>";
+            
+            request.setAttribute("ageoutput", ageouput);
+            
+            getServletContext().getRequestDispatcher("/WEB-INF/agecalculator.jsp")
+                .forward(request, response);
+            return;
+        }
+    }
+    
+    //Created my own verification if input is numeric
+    public static boolean isNumeric(String x) {
+        try {
+            Integer.parseInt(x);
+            return true;
+        }
+        catch(NumberFormatException e) {
+            return false;
+        }
     }
 }
