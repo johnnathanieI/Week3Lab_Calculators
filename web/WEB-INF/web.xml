@@ -7,6 +7,10 @@
     <servlet>
         <servlet-name>ArithmeticCalculatorServlet</servlet-name>
         <servlet-class>servlets.ArithmeticCalculatorServlet</servlet-class>
+        <init-param>
+            <param-name>numoutput</param-name>
+            <param-value>---&lt;br&gt;</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>AgeCalculatorServlet</servlet-name>
